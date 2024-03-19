@@ -60,7 +60,7 @@ t_command_info init_command(char **argv, char **env)
     command.envp = ft_matrix_dup(env);
     signal_status = 0;
     get_pid(&command);
-    command = info_init(command, str. argv);
+    command = info_init(command, str, argv);
     return(command);
 }
 
@@ -75,7 +75,7 @@ int main(int argc, char **argv, char **env)
     {
         signal(SIGINT, signal_new_line);
         signal(SIGQIUT, SIG_IGN);
-        str = get_command(command);
+        str = get_command_name(command);
     }
 
     int i;
