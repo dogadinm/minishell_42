@@ -77,6 +77,16 @@ int main(int argc, char **argv, char **env)
         signal(SIGQIUT, SIG_IGN);
         str = get_command(command);
     }
+
+    int i;
+	i = 0;
+	while (prompt.envp[i])
+	{
+		free(prompt.envp[i]);
+		i++;
+	}
+	free(prompt.envp);
+	exit(g_status);
     
     
 }
