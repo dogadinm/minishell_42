@@ -9,6 +9,10 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <dirent.h>
+# include "colors.h"
+
+# define READ_END 0
+# define WRITE_END 1
 
 typedef struct s_command_info
 {

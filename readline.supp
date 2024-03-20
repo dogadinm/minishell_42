@@ -11,4 +11,4 @@
     fun:add_history
 }
 
-// valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishellvalgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
+// valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
