@@ -86,7 +86,7 @@ int main(int argc, char **argv, char **env)
 		i++;
 	}
 	free(prompt.envp);
-	exit(g_status);
+	exit(signal_status);
     
     
 }
