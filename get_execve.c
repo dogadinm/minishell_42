@@ -1,3 +1,6 @@
+#include "./include/minishell.h"
+
+
 static void	update_output(char ***matrix, int fd)
 {
 	char	**aux;
