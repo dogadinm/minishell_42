@@ -52,18 +52,6 @@ enum e_error
 	NOT_DIR = 13
 };
 
-
-
-// char **ft_matrix_dup(matrix);
-void ft_free_matrix(char **matrix);
-void	signal_new_line(int sign);
-char get_command_name(command);
-
-int	ft_strchr_i(const char *s, int c);
-char	**ft_extend_matrix(char **in, char *newstr);
-void	get_execve(char ***out, char *full, char *args, char **envp);
-
-
 // get_params 
 t_mini	*get_outfile1(t_mini *mode, **args. int *i);
 t_mini	*get_outfile2(t_mini *node, **args, int *i);
@@ -78,9 +66,25 @@ int	mini_unset(t_command_info *command);
 
 // errors
 int		mini_exit(t_list *cmd, int *is_exit);
-void		cd_error(char **str[2])
-void		free_content(void *content)
+void	cd_error(char **str[2]);
+void	free_content(void *content);
 void	*mini_perror(int err_type, char *param, int err);
 
+// exec
+void *check_to_fork(t_command_info *command, t_list *cmd, int fd[2]);
 
+// strtrim_all
+char	*ft_strtrim_all(char const *string, int squote, int dquote);
+
+// get_command_name
+char get_command_name(command);
+
+// get_execve
+void	get_execve(char ***out, char *full, char *args, char **envp);
+
+// signal
+void	signal_new_line(int sign);
+
+// virtual_doc
+int virtual_doc(char *str[2], char *name)
 #endif
