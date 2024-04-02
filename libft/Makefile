@@ -1,56 +1,68 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: mdogadin <mdogadin@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/10/25 12:14:44 by mdogadin          #+#    #+#              #
-#    Updated: 2023/10/25 13:01:38 by mdogadin         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = libft.a
-
-CC = gcc
-
+CC = gcc 
 CFLAGS = -Wall -Wextra -Werror
+AR = ar 
 
-AR = ar
+SRC =	src/ft_atoi.c src/ft_bzero.c	\
+	src/ft_calloc.c src/ft_putendl_fd.c		\
+	src/ft_itoa.c src/ft_putchar_fd.c		\
+	src/ft_putstr_fd.c src/ft_memccpy.c		\
+	src/ft_memchr.c src/ft_memcmp.c			\
+	src/ft_memcpy.c src/ft_isalnum.c		\
+	src/ft_isalpha.c src/ft_isascii.c		\
+	src/ft_isdigit.c src/ft_isprint.c		\
+	src/ft_memmove.c src/ft_memset.c		\
+	src/ft_split.c src/ft_strchr.c			\
+	src/ft_strdup.c src/ft_strjoin.c		\
+	src/ft_strlcat.c src/ft_strlcpy.c		\
+	src/ft_strlen.c src/ft_strmapi.c		\
+	src/ft_strncmp.c src/ft_strnstr.c		\
+	src/ft_strrchr.c src/ft_strtrim.c		\
+	src/ft_substr.c src/ft_tolower.c		\
+	src/ft_toupper.c src/ft_putnbr_fd.c
 
-SRC = ft_atoi.c ft_memchr.c ft_split.c ft_strncmp.c ft_bzero.c \
-	ft_memcmp.c ft_strchr.c ft_strnstr.c ft_calloc.c ft_memcpy.c \
-	ft_strdup.c ft_strrchr.c ft_memmove.c ft_striteri.c ft_isalnum.c\
-	ft_strtrim.c ft_isalpha.c ft_memset.c ft_strjoin.c ft_substr.c \
-	ft_isascii.c ft_putchar_fd.c ft_strlcat.c ft_tolower.c ft_isdigit.c \
-	ft_putendl_fd.c ft_strlcpy.c ft_toupper.c ft_isprint.c ft_putnbr_fd.c \
-	ft_strlen.c ft_itoa.c ft_putstr_fd.c ft_strmapi.c ft_printf.c ft_putnbr.c \
-	ft_putnbr_hexad.c ft_putnbr_unsigned.c ft_putptr.c ft_putstr.c get_next_line.c \
-	get_next_line_utils.c \
-	
+LIST = list/ft_lstadd_back.c	\
+	list/ft_lstadd_front.c	\
+	list/ft_lstclear.c		\
+	list/ft_lstdelone.c		\
+	list/ft_lstiter.c		\
+	list/ft_lstlast.c		\
+	list/ft_lstsize.c		\
+	list/ft_lstnew.c			\
+	list/ft_lstmap.c			\
+	list/ft_lstget_at.c
 
-SRCBONUS = ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c \
-		ft_lstiter.c ft_lstlast.c ft_lstmap.c ft_lstnew.c ft_lstsize.c
+UTIL = util/ft_putnbr_base_fd.c util/ft_putstrn_fd.c		\
+	util/ft_putnchar_fd.c util/ft_isspace.c util/ft_uitoa.c	\
+	util/ft_nbrlen.c util/ft_strrncmp.c util/ft_countchar.c	\
+	util/ft_strenlarge.c util/ft_recursive_power.c			\
+	util/ft_chartostr.c util/ft_sqrt.c util/ft_newvector.c	\
+	util/ft_euclideandistance.c  util/ft_atoi2.c			\
+	util/ft_free_matrix.c util/ft_dup_matrix.c				\
+	util/ft_strchr_i.c util/ft_putmatrix_fd.c				\
+	util/ft_matrixlen.c util/ft_strchars_i.c				\
+	util/ft_between_chars.c util/ft_subsplit.c				\
+	util/ft_extend_matrix.c util/ft_matrixtolst.c			\
+	util/ft_lsttomatrix.c util/ft_matrix_replace_in.c 		\
+	util/ft_matrixlen.c
 
 OBJ = $(SRC:.c=.o)
 
-OBJBONUS = $(SRCBONUS:.c=.o)
+OBJ_LIST = $(LIST:.c=.o)
 
-$(NAME): $(OBJ)
-	$(AR) rc $(NAME) $(OBJ)
-	ranlib $(NAME)
+OBJ_UTIL = $(UTIL:.c=.o)
 
 all: $(NAME)
 
-bonus: $(OBJ) $(OBJBONUS)
-	$(AR) rc $(NAME) $(OBJ) $(OBJBONUS)
+$(NAME): $(OBJ) $(OBJ_LIST) $(OBJ_UTIL)
+	$(AR) rc $(NAME) $(OBJ) $(OBJ_LIST) $(OBJ_UTIL)
 	ranlib $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJ) $(OBJBONUS)
+	rm -f $(OBJ) $(OBJ_LIST) $(OBJ_UTIL)
 
 fclean: clean
 	rm -f $(NAME)

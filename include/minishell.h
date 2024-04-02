@@ -1,7 +1,15 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "./libft/libft.h"
+
+# define GREEN "\001\033[1;92m\002"
+# define MAGENTA "\001\033[1;95m\002"
+# define RED "\001\033[1;91m\002"
+# define DEFAULT "\001\033[0;39m\002"
+# define BLUE "\001\033[1;94m\002"
+
+# include "./libft/inc/libft.h"
+# include "get_next_line.h"
 # include <signal.h>
 # include <sys/wait.h>
 # include <sys/ioctl.h>
@@ -9,7 +17,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <dirent.h>
-# include "colors.h"
 
 
 # define READ_END 0
@@ -47,7 +54,7 @@ enum e_error
 
 
 
-char **ft_matrix_dup(matrix);
+// char **ft_matrix_dup(matrix);
 void ft_free_matrix(char **matrix);
 void	signal_new_line(int sign);
 char get_command_name(command);
