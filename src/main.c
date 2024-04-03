@@ -6,7 +6,7 @@
 /*   By: mdogadin <mdogadin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:20:52 by mdogadin          #+#    #+#             */
-/*   Updated: 2024/04/03 17:06:06 by mdogadin         ###   ########.fr       */
+/*   Updated: 2024/04/03 17:14:32 by mdogadin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,7 @@ int	main(int argc, char **argv, char **env)
 	}
 	i = 0;
 	while (command.envp[i])
-	{
-		free(command.envp[i]);
-		i++;
-	}
+		free(command.envp[i++]);
 	free(command.envp);
 	exit(g_signal_status);
 }
