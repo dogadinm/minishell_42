@@ -77,7 +77,6 @@ void	*check_args(char *out, t_command_info *p)
 	if (!a)
 		return ("");
 	p = parse_args(a, p);
-	printf("hh\n");
 	if (p && p->cmd)
 		n = p->cmd->content;
 	if (p && p->cmd && n && n->full_cmd && ft_lstsize(p->cmd) == 1)
