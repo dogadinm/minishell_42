@@ -2,6 +2,32 @@
 
 extern int	signal_status;
 
+int	get_fd(int oldfd, char *path, int flags[2])
+{
+	// printf("%s ffffff\n", path);
+	int	fd;
+
+	if (oldfd > 2)
+		close(oldfd);
+	if (!path)
+		return (-1);
+	if (access(path, F_OK) == -1 && !flags[0])
+		mini_perror(NDIR, path, 127);
+	else if (!flags[0] && access(path, R_OK) == -1)
+		mini_perror(NPERM, path, 126);
+	else if (flags[0] && access(path, W_OK) == -1 && access(path, F_OK) == 0)
+		mini_perror(NPERM, path, 126);
+	if (flags[0] && flags[1])
+		fd = open(path, O_CREAT | O_WRONLY | O_APPEND, 0666);
+	else if (flags[0] && !flags[1])
+		fd = open(path, O_CREAT | O_WRONLY | O_TRUNC, 0666);
+	else if (!flags[0] && oldfd != -1)
+		fd = open(path, O_RDONLY);
+	else
+		fd = oldfd;
+	return (fd);
+}
+
 t_mini	*get_outfile1(t_mini *node, **args, int *i)
 {
     char *error_msg;

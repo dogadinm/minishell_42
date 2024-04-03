@@ -53,13 +53,13 @@ enum e_error
 };
 
 // get_params 
-t_mini	*get_outfile1(t_mini *mode, **args. int *i);
+t_mini	*get_outfile1(t_mini *mode, **args, int *i);
 t_mini	*get_outfile2(t_mini *node, **args, int *i);
 t_mini	*get_infile1(t_mini *node, char **args, int *i);
 t_mini	*get_infile2(t_mini *node, char **args, int *i);
 
 //env
-char get_env(char *var, char **envp, int n);
+char *get_env(char *var, char **envp, int n)
 char	**set_env(char *var, char *value, char **envp, int n);
 int	mini_export(t_command_info *command);
 int	mini_unset(t_command_info *command);
@@ -77,7 +77,7 @@ void *check_to_fork(t_command_info *command, t_list *cmd, int fd[2]);
 char	*ft_strtrim_all(char const *string, int squote, int dquote);
 
 // get_command_name
-char get_command_name(command);
+char *get_command_name(t_command_info command);
 
 // get_execve
 void	get_execve(char ***out, char *full, char *args, char **envp);
@@ -90,14 +90,14 @@ int virtual_doc(char *str[2], char *name);
 
 //tomas
 //parse args
-void	*check_args(char *out, t_prompt *p);
+void	*check_args(char *out, t_command_info *p);
 
 //builtins
-int		builtin(t_prompt *prompt, t_list *cmd, int *is_exit, int n);
+int		builtin(t_command_info *prompt, t_list *cmd, int *is_exit, int n);
 int		is_builtin(t_mini *n);
 
 //shell commands
-int		mini_cd(t_prompt *prompt);
+int		mini_cd(t_command_info *prompt);
 int		mini_pwd(void);
 int		mini_echo(t_list *cmd);
 
@@ -105,8 +105,8 @@ int		mini_echo(t_list *cmd);
 t_list	*fill_nodes(char **args, int i);
 
 //execute command
-void	*exec_cmd(t_prompt *prompt, t_list *cmd);
-void	get_cmd(t_prompt *prompt, t_list *start, char **split_path, char *path);
+void	*exec_cmd(t_command_info *prompt, t_list *cmd);
+void	get_cmd(t_command_info *prompt, t_list *start, char **split_path, char *path);
 
 //trim
 char	**ft_cmdtrim(char const *s, char *set);
@@ -115,7 +115,8 @@ char	**ft_cmdtrim(char const *s, char *set);
 char	**ft_cmdsubsplit(char const *s, char *set);
 
 //expand vars
-char	*expand_vars(char *str, int i, int quotes[2], t_prompt *prompt);
+char	*expand_vars(char *str, int i, int quotes[2], t_command_info *prompt);
 char	*expand_path(char *str, int i, int quotes[2], char *var);
+
 
 #endif

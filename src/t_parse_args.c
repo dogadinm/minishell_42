@@ -2,7 +2,7 @@
 
 extern int	signal_status;
 
-static char	**split_all(char **args, t_prompt *prompt)
+static char	**split_all(char **args, t_command_info *prompt)
 {
 	char	**subsplit;
 	int		i;
@@ -22,7 +22,7 @@ static char	**split_all(char **args, t_prompt *prompt)
 	return (args);
 }
 
-static void	*parse_args(char **args, t_prompt *p)
+static void	*parse_args(char **args, t_command_info *p)
 {
 	int	is_exit;
 	int	i;
@@ -47,7 +47,7 @@ static void	*parse_args(char **args, t_prompt *p)
 	return (p);
 }
 
-void	*check_args(char *out, t_prompt *p)
+void	*check_args(char *out, t_command_info *p)
 {
 	char	**a;
 	t_mini	*n;

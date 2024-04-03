@@ -9,7 +9,7 @@ void get_pid(t_command_info *command)
     pid = fork();
     if (pid < 0)
     {
-        ft_perror(FORKERR, NULL, 1);
+        mini_perror(FORKERR, NULL, 1);
         ft_free_matrix(&command->envp);
         exit(1);
     }
@@ -74,7 +74,7 @@ int main(int argc, char **argv, char **env)
     while (argv && argc)
     {
         signal(SIGINT, signal_new_line);
-        signal(SIGQIUT, SIG_IGN);
+        signal(SIGQUIT, SIG_IGN);
         str = get_command_name(command);
         if (str)
 		{
@@ -89,12 +89,12 @@ int main(int argc, char **argv, char **env)
 
     int i;
 	i = 0;
-	while (prompt.envp[i])
+	while (command.envp[i])
 	{
-		free(prompt.envp[i]);
+		free(command.envp[i]);
 		i++;
 	}
-	free(prompt.envp);
+	free(command.envp);
 	exit(signal_status);
     
     
