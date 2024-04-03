@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-extern int	signal_status;
+extern int	g_signal_status;
 
 static char	**split_all(char **args, t_command_info *command)
 {
@@ -32,13 +32,13 @@ static void	*parse_args(char **args, t_command_info *p)
 	if (!p->cmd)
 		return (p);
 	i = ft_lstsize(p->cmd);
-	signal_status = builtin(p, p->cmd, &is_exit, 0);
+	g_signal_status = builtin(p, p->cmd, &is_exit, 0);
 	while (i-- > 0)
-		waitpid(-1, &signal_status, 0);
-	if (!is_exit && signal_status == 13)
-		signal_status = 0;
-	if (signal_status > 255)
-		signal_status = signal_status / 255;
+		waitpid(-1, &g_signal_status, 0);
+	if (!is_exit && g_signal_status == 13)
+		g_signal_status = 0;
+	if (g_signal_status > 255)
+		g_signal_status = g_signal_status / 255;
 	if (args && is_exit)
 	{
 		ft_lstclear(&p->cmd, free_content);

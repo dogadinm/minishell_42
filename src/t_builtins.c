@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-extern int	signal_status;
+extern int	g_signal_status;
 
 int	builtin(t_command_info *command, t_list *cmd, int *is_exit, int n)
 {
@@ -13,13 +13,13 @@ int	builtin(t_command_info *command, t_list *cmd, int *is_exit, int n)
 		if (a)
 			n = ft_strlen(*a);
 		if (a && !ft_strncmp(*a, "exit", n) && n == 4)
-			signal_status = mini_exit(cmd, is_exit);
+			g_signal_status = mini_exit(cmd, is_exit);
 		else if (!cmd->next && a && !ft_strncmp(*a, "cd", n) && n == 2)
-			signal_status = mini_cd(command);
+			g_signal_status = mini_cd(command);
 		else if (!cmd->next && a && !ft_strncmp(*a, "export", n) && n == 6)
-			signal_status = mini_export(command);
+			g_signal_status = mini_export(command);
 		else if (!cmd->next && a && !ft_strncmp(*a, "unset", n) && n == 5)
-			signal_status = mini_unset(command);
+			g_signal_status = mini_unset(command);
 		else
 		{
 			signal(SIGINT, SIG_IGN);
@@ -28,7 +28,7 @@ int	builtin(t_command_info *command, t_list *cmd, int *is_exit, int n)
 		}
 		cmd = cmd->next;
 	}
-	return (signal_status);
+	return (g_signal_status);
 }
 
 int	is_builtin(t_mini *n)
@@ -63,7 +63,7 @@ int	mini_cd(t_command_info *p)
 	char	**str[2];
 	char	*aux;
 
-	signal_status = 0;
+	g_signal_status = 0;
 	str[0] = ((t_mini *)p->cmd->content)->full_cmd;
 	aux = get_env("HOME", p->envp, 4);
 	if (!aux)
@@ -74,7 +74,7 @@ int	mini_cd(t_command_info *p)
 	str[1] = ft_extend_matrix(str[1], aux);
 	free(aux);
 	cd_error(str);
-	if (!signal_status)
+	if (!g_signal_status)
 		p->envp = set_env("OLDPWD", str[1][1], p->envp, 6);
 	aux = getcwd(NULL, 0);
 	if (!aux)
@@ -83,7 +83,7 @@ int	mini_cd(t_command_info *p)
 	free(aux);
 	p->envp = set_env("PWD", str[1][2], p->envp, 3);
 	ft_free_matrix(&str[1]);
-	return (signal_status);
+	return (g_signal_status);
 }
 
 int	mini_pwd(void)

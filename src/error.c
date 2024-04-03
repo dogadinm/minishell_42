@@ -1,10 +1,10 @@
 #include "../include/minishell.h"
 
-extern int signal_status;
+extern int g_signal_status;
 
 void	*mini_perror(int err_type, char *param, int err)
 {
-	signal_status = err;
+	g_signal_status = err;
 	if (err_type == QUOTE)
 		ft_putstr_fd("minishell: error while looking for matching quote\n", 2);
 	else if (err_type == NDIR)
@@ -95,11 +95,11 @@ void	cd_error(char **str[2])
 		dir = opendir(str[0][1]);
 	if (!str[0][1] && str[1][0] && !str[1][0][0])
 	{
-		signal_status = 1;
+		g_signal_status = 1;
 		ft_putstr_fd("minishell: HOME not set\n", 2);
 	}
 	if (str[1][0] && !str[0][1])
-		signal_status = chdir(str[1][0]) == -1;
+		g_signal_status = chdir(str[1][0]) == -1;
 	if (str[0][1] && dir && access(str[0][1], F_OK) != -1)
 		chdir(str[0][1]);
 	else if (str[0][1] && access(str[0][1], F_OK) == -1)

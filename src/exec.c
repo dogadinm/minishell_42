@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdogadin <mdogadin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/03 16:26:14 by mdogadin          #+#    #+#             */
+/*   Updated: 2024/04/03 16:31:37 by mdogadin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
-extern int	signal_status;
+extern int	g_signal_status;
 
 void	child_builtin(t_command_info *command, t_mini *n, int l, t_list *cmd)
 {
@@ -10,15 +22,15 @@ void	child_builtin(t_command_info *command, t_mini *n, int l, t_list *cmd)
 		execve(n->full_path, n->full_cmd, command->envp);
 	else if (n->full_cmd && !ft_strncmp(*n->full_cmd, "pwd", l) \
 		&& l == 3)
-		signal_status = mini_pwd();
+		g_signal_status = mini_pwd();
 	else if (is_builtin(n) && n->full_cmd && \
 		!ft_strncmp(*n->full_cmd, "echo", l) && l == 4)
-		signal_status = mini_echo(cmd);
+		g_signal_status = mini_echo(cmd);
 	else if (is_builtin(n) && n->full_cmd && \
 		!ft_strncmp(*n->full_cmd, "env", l) && l == 3)
 	{
 		ft_putmatrix_fd(command->envp, 1, 1);
-		signal_status = 0;
+		g_signal_status = 0;
 	}
 }
 
@@ -58,7 +70,7 @@ void	*child_process(t_command_info *command, t_list *cmd, int fd[2])
 	close(fd[READ_END]);
 	child_builtin(command, n, l, cmd);
 	ft_lstclear(&command->cmd, free_content);
-	exit(signal_status);
+	exit(g_signal_status);
 }
 
 void	exec_fork(t_command_info *command, t_list *cmd, int fd[2])
@@ -76,14 +88,13 @@ void	exec_fork(t_command_info *command, t_list *cmd, int fd[2])
 		child_process(command, cmd, fd);
 }
 
-
-void *check_to_fork(t_command_info *command, t_list *cmd, int fd[2])
+void	*check_to_fork(t_command_info *command, t_list *cmd, int fd[2])
 {
-    t_mini  *node;
-    DIR *dir;
+	t_mini	*node;
+	DIR	*dir;
 
-    node = cmd->content;
-    dir = NULL;
+	node = cmd->content;
+	dir = NULL;
 	if (node->full_cmd)
 		dir = opendir(*node->full_cmd);
 	if (node->infile == -1 || node->outfile == -1)
@@ -92,9 +103,9 @@ void *check_to_fork(t_command_info *command, t_list *cmd, int fd[2])
 		exec_fork(command, cmd, fd);
 	else if (!is_builtin(node) && ((node->full_path && \
 		!access(node->full_path, F_OK)) || dir))
-		signal_status = 126;
+		g_signal_status = 126;
 	else if (!is_builtin(node) && node->full_cmd)
-		signal_status = 127;
+		g_signal_status = 127;
 	if (dir)
 		closedir(dir);
 	return ("");

@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_params.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdogadin <mdogadin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/03 16:28:53 by mdogadin          #+#    #+#             */
+/*   Updated: 2024/04/03 16:29:54 by mdogadin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 extern int	signal_status;
 
 int	get_fd(int oldfd, char *path, int flags[2])
 {
-	// printf("%s ffffff\n", path);
 	int	fd;
 
 	if (oldfd > 2)
@@ -30,13 +41,13 @@ int	get_fd(int oldfd, char *path, int flags[2])
 
 t_mini	*get_outfile1(t_mini *node, char **args, int *i)
 {
-    char *error_msg;
-    int redirector[2];
+	char	*error_msg;
+	int		redirector[2];
 
-    redirector[0] = 1;
-    redirector[1] = 0;
-    error_msg = "minishell: syntax error near unexpected token `newline'";
-    (*i)++;
+	redirector[0] = 1;
+	redirector[1] = 0;
+	error_msg = "minishell: syntax error near unexpected token `newline'";
+	(*i)++;
 	if (args[*i])
 		node->outfile = get_fd(node->outfile, args[*i], redirector);
 	if (!args[*i] || node->outfile == -1)
@@ -56,13 +67,13 @@ t_mini	*get_outfile1(t_mini *node, char **args, int *i)
 
 t_mini	*get_outfile2(t_mini *node, char **args, int *i)
 {
-    char *error_msg;
-    int redirector[2];
+	char	*error_msg;
+	int		redirector[2];
 
-    redirector[0] = 1;
-    redirector[1] = 1;
-    error_msg = "minishell: syntax error near unexpected token `newline'";
-    (*i)++;
+	redirector[0] = 1;
+	redirector[1] = 1;
+	error_msg = "minishell: syntax error near unexpected token `newline'";
+	(*i)++;
 	if (args[++(*i)])
 		node->outfile = get_fd(node->outfile, args[*i], redirector);
 	if (!args[*i] || node->outfile == -1)

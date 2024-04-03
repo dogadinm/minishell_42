@@ -1,34 +1,46 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdogadin <mdogadin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/03 16:20:52 by mdogadin          #+#    #+#             */
+/*   Updated: 2024/04/03 16:31:41 by mdogadin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
-extern int	signal_status;
+extern int	g_signal_status;
 
-void get_pid(t_command_info *command)
+void	get_pid(t_command_info *command)
 {
-    pid_t pid;
+	pid_t	pid;
 
-    pid = fork();
-    if (pid < 0)
-    {
-        mini_perror(FORKERR, NULL, 1);
-        ft_free_matrix(&command->envp);
-        exit(1);
-    }
-    if(!pid)
-    {
-        ft_free_matrix(&command->envp);
-        exit(1);
-    }
-    waitpid(pid, NULL, 0);
+	pid = fork();
+	if (pid < 0)
+	{
+		mini_perror(FORKERR, NULL, 1);
+		ft_free_matrix(&command->envp);
+		exit(1);
+	}
+	if (!pid)
+	{
+		ft_free_matrix(&command->envp);
+		exit(1);
+	}
+	waitpid(pid, NULL, 0);
 	command->pid = pid - 1;
 }
 
-t_command_info info_init(t_command_info command, char *str, char **argv)
+t_command_info	info_init(t_command_info command, char *str, char **argv)
 {
-    char *num;
+	char	*num;
 
-    str = getcwd(NULL, 0);
-    command.envp = set_env("PWD", str, command.envp, 3);
-    	free(str);
+	str = getcwd(NULL, 0);
+	command.envp = set_env("PWD", str, command.envp, 3);
+	free(str);
 	str = get_env("SHLVL", command.envp, 5);
 	if (!str || ft_atoi(str) <= 0)
 		num = ft_strdup("1");
@@ -47,36 +59,36 @@ t_command_info info_init(t_command_info command, char *str, char **argv)
 		command.envp = set_env("_", argv[0], command.envp, 1);
 	free(str);
 	return (command);
-
 }
 
-t_command_info init_command(char **argv, char **env)
+t_command_info	init_command(char **argv, char **env)
 {
-    t_command_info   command;
-    char    *str;
+	t_command_info	command;
+	char	*str;
 
-    str = NULL;
-    command.cmd = NULL;
-    command.envp = ft_dup_matrix(env);
-    signal_status = 0;
-    get_pid(&command);
-    command = info_init(command, str, argv);
-    return(command);
+	str = NULL;
+	command.cmd = NULL;
+	command.envp = ft_dup_matrix(env);
+	g_signal_status = 0;
+	get_pid(&command);
+	command = info_init(command, str, argv);
+	return (command);
 }
 
-int main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
-    t_command_info   command;
-    char *str;
-    char *out;
-
-    command = init_command(argv, env);
-    while (argv && argc)
-    {
-        signal(SIGINT, signal_new_line);
-        signal(SIGQUIT, SIG_IGN);
-        str = get_command_name(command);
-        if (str)
+	t_command_info	command;
+	char	*str;
+	char	*out;
+	int		i;
+	
+	command = init_command(argv, env);
+	while (argv && argc)
+	{
+		signal(SIGINT, signal_new_line);
+		signal(SIGQUIT, SIG_IGN);
+		str = get_command_name(command);
+		if (str)
 		{
 			out = readline(str);
 		}
@@ -85,9 +97,7 @@ int main(int argc, char **argv, char **env)
 		free(str);
 		if (!check_args(out, &command))
 			break ;
-    }
-
-    int i;
+	}
 	i = 0;
 	while (command.envp[i])
 	{
@@ -95,7 +105,5 @@ int main(int argc, char **argv, char **env)
 		i++;
 	}
 	free(command.envp);
-	exit(signal_status);
-    
-    
+	exit(g_signal_status);
 }

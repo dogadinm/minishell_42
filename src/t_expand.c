@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-extern int	signal_status;
+extern int	g_signal_status;
 
 char	*expand_path(char *str, int i, int quotes[2], char *var)
 {
@@ -47,7 +47,7 @@ static char	*get_substr_var(char *str, int i, t_command_info *command)
 	if (!var && str[i] == '$')
 		var = ft_itoa(command->pid);
 	else if (!var && str[i] == '?')
-		var = ft_itoa(signal_status);
+		var = ft_itoa(g_signal_status);
 	path = ft_strjoin(aux, var);
 	free(aux);
 	aux = ft_strjoin(path, &str[i + pos]);
