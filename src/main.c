@@ -4,7 +4,7 @@ extern int	signal_status;
 
 void get_pid(t_command_info *command)
 {
-    pir_t pid;
+    pid_t pid;
 
     pid = fork();
     if (pid < 0)
@@ -27,7 +27,7 @@ t_command_info info_init(t_command_info command, char *str, char **argv)
     char *num;
 
     str = getcwd(NULL, 0);
-    command.envp = ste_env("PWD", str, command.envp, 3);
+    command.envp = set_env("PWD", str, command.envp, 3);
     	free(str);
 	str = get_env("SHLVL", command.envp, 5);
 	if (!str || ft_atoi(str) <= 0)
@@ -76,6 +76,15 @@ int main(int argc, char **argv, char **env)
         signal(SIGINT, signal_new_line);
         signal(SIGQIUT, SIG_IGN);
         str = get_command_name(command);
+        if (str)
+		{
+			out = readline(str);
+		}
+		else
+			out = readline("guest@minishell $ ");
+		free(str);
+		if (!check_args(out, &command))
+			break ;
     }
 
     int i;
