@@ -1,4 +1,4 @@
-#include "./include/minishell.h"
+#include "../include/minishell.h"
 
 static int corret_len_malloc(char *string)
 {

@@ -86,5 +86,36 @@ void	get_execve(char ***out, char *full, char *args, char **envp);
 void	signal_new_line(int sign);
 
 // virtual_doc
-int virtual_doc(char *str[2], char *name)
+int virtual_doc(char *str[2], char *name);
+
+//tomas
+//parse args
+void	*check_args(char *out, t_prompt *p);
+
+//builtins
+int		builtin(t_prompt *prompt, t_list *cmd, int *is_exit, int n);
+int		is_builtin(t_mini *n);
+
+//shell commands
+int		mini_cd(t_prompt *prompt);
+int		mini_pwd(void);
+int		mini_echo(t_list *cmd);
+
+//fill nodes
+t_list	*fill_nodes(char **args, int i);
+
+//execute command
+void	*exec_cmd(t_prompt *prompt, t_list *cmd);
+void	get_cmd(t_prompt *prompt, t_list *start, char **split_path, char *path);
+
+//trim
+char	**ft_cmdtrim(char const *s, char *set);
+
+//subsplit
+char	**ft_cmdsubsplit(char const *s, char *set);
+
+//expand vars
+char	*expand_vars(char *str, int i, int quotes[2], t_prompt *prompt);
+char	*expand_path(char *str, int i, int quotes[2], char *var);
+
 #endif
