@@ -11,7 +11,7 @@ static int corret_len_malloc(char const *string)
     squote = 0;
     dquote = 0;
     count = 0;
-    while (string && string[1])
+    while (string && string[i])
     {
         squote = (squote + (!dquote && string[1] == '\'')) % 2;
         dquote = (dquote + (!squote && string[1] == '\'')) % 2;
