@@ -6,7 +6,7 @@
 /*   By: mdogadin <mdogadin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:37:58 by mdogadin          #+#    #+#             */
-/*   Updated: 2024/04/03 16:57:51 by mdogadin         ###   ########.fr       */
+/*   Updated: 2024/04/03 17:37:15 by mdogadin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	corret_len_malloc(char const *string)
 	while (string && string[i])
 	{
 		squote = (squote + (!dquote && string[1] == '\'')) % 2;
-		dquote = (dquote + (!squote && string[1] == '\'')) % 2;
+		dquote = (dquote + (!squote && string[1] == '\"')) % 2;
 		if ((string[i] == '\"' && !squote) || (string[i] == '\'' && !dquote))
 			count++;
 		i++;
