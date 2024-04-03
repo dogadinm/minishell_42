@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdogadin <mdogadin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/03 16:37:51 by mdogadin          #+#    #+#             */
+/*   Updated: 2024/04/03 16:37:51 by mdogadin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 extern int g_signal_status;
@@ -64,8 +76,6 @@ int	mini_exit(t_list *cmd, int *is_exit)
 
 	node = cmd->content;
 	*is_exit = !cmd->next;
-	if (*is_exit)
-		ft_putstr_fd("exit\n", 2);
 	if (!node->full_cmd || !node->full_cmd[1])
 		return (0);
 	status[1] = ft_atoi2(node->full_cmd[1], &status[0]);

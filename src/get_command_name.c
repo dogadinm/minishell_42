@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_command_name.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdogadin <mdogadin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/03 16:38:03 by mdogadin          #+#    #+#             */
+/*   Updated: 2024/04/03 16:56:17 by mdogadin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 extern int	g_signal_status;
 
-static void get_home(t_command_info command, char **path)
+static void	get_home(t_command_info command, char **path)
 {
-	char *temp;
-	char *pwd;
-	char *home;
+	char	*temp;
+	char	*pwd;
+	char	*home;
 
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
@@ -42,14 +54,14 @@ static void	get_user(t_command_info command, char **user)
 	ft_free_matrix(&temp);
 }
 
-char *get_command_name(t_command_info command)
+char	*get_command_name(t_command_info command)
 {
-    char *temp;
-    char *user;
-    char *path;
-	char *user_path;
+	char	*temp;
+	char	*user;
+	char	*path;
+	char	*user_path;
 
-    get_user(command, &temp);
+	get_user(command, &temp);
 	user = ft_strjoin(temp, "@minishell");
 	free(temp);
 	get_home(command, &path);
@@ -65,5 +77,5 @@ char *get_command_name(t_command_info command)
 	free(user_path);
 	user_path = ft_strjoin(temp, DEFAULT);
 	free(temp);
-	return(user_path);
+	return (user_path);
 }

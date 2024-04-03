@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   t_parse_args.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdogadin <mdogadin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/03 16:38:33 by mdogadin          #+#    #+#             */
+/*   Updated: 2024/04/03 16:38:33 by mdogadin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 extern int	g_signal_status;
@@ -54,7 +66,6 @@ void	*check_args(char *out, t_command_info *p)
 
 	if (!out)
 	{
-		printf("exit\n");
 		return (NULL);
 	}
 	if (out[0] != '\0')

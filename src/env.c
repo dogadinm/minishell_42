@@ -1,23 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdogadin <mdogadin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/03 16:37:47 by mdogadin          #+#    #+#             */
+/*   Updated: 2024/04/03 16:51:22 by mdogadin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
-char *get_env(char *var, char **envp, int n)
+char	*get_env(char *var, char **envp, int n)
 {
-    int i;
-    int n2;
+	int	i;
+	int	n2;
 
-    i = 0;
-    if (n < 0)
-        n = ft_strlen(var);
-    while (!ft_strchr(var, '=') && envp && envp[i])
-    {
-        n2 = n;
-        if (n2 < ft_strchr_i(envp[i], '='))
-            n2 = ft_strchr_i(envp[i], '=');
-        if (!ft_strncmp(envp[i], var, n2))
-            return (ft_substr(envp[i], n2 + 1, ft_strlen(envp[i])));
-        i++;
-    }
-    return (NULL);
+	i = 0;
+	if (n < 0)
+		n = ft_strlen(var);
+	while (!ft_strchr(var, '=') && envp && envp[i])
+	{
+		n2 = n;
+		if (n2 < ft_strchr_i(envp[i], '='))
+			n2 = ft_strchr_i(envp[i], '=');
+		if (!ft_strncmp(envp[i], var, n2))
+			return (ft_substr(envp[i], n2 + 1, ft_strlen(envp[i])));
+		i++;
+	}
+	return (NULL);
 }
 
 char	**set_env(char *var, char *value, char **envp, int n)
