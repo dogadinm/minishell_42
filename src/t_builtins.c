@@ -2,7 +2,7 @@
 
 extern int	signal_status;
 
-int	builtin(t_prompt *prompt, t_list *cmd, int *is_exit, int n)
+int	builtin(t_command_info *prompt, t_list *cmd, int *is_exit, int n)
 {
 	char	**a;
 
@@ -58,13 +58,13 @@ int	is_builtin(t_mini *n)
 	return (0);
 }
 
-int	mini_cd(t_prompt *p)
+int	mini_cd(t_command_info *p)
 {
 	char	**str[2];
 	char	*aux;
 
 	signal_status = 0;
-	str[0] = ((t_mini *)p->cmds->content)->full_cmd;
+	str[0] = ((t_mini *)p->cmd->content)->full_cmd;
 	aux = get_env("HOME", p->envp, 4);
 	if (!aux)
 		aux = ft_strdup("");

@@ -53,13 +53,13 @@ enum e_error
 };
 
 // get_params 
-t_mini	*get_outfile1(t_mini *mode, **args, int *i);
-t_mini	*get_outfile2(t_mini *node, **args, int *i);
+t_mini	*get_outfile1(t_mini *mode, char **args, int *i);
+t_mini	*get_outfile2(t_mini *node, char **args, int *i);
 t_mini	*get_infile1(t_mini *node, char **args, int *i);
 t_mini	*get_infile2(t_mini *node, char **args, int *i);
 
 //env
-char *get_env(char *var, char **envp, int n)
+char *get_env(char *var, char **envp, int n);
 char	**set_env(char *var, char *value, char **envp, int n);
 int	mini_export(t_command_info *command);
 int	mini_unset(t_command_info *command);

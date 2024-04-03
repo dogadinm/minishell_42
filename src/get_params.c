@@ -28,7 +28,7 @@ int	get_fd(int oldfd, char *path, int flags[2])
 	return (fd);
 }
 
-t_mini	*get_outfile1(t_mini *node, **args, int *i)
+t_mini	*get_outfile1(t_mini *node, char **args, int *i)
 {
     char *error_msg;
     int redirector[2];
@@ -54,7 +54,7 @@ t_mini	*get_outfile1(t_mini *node, **args, int *i)
 }
 
 
-t_mini	*get_outfile2(t_mini *node, **args, int *i)
+t_mini	*get_outfile2(t_mini *node, char **args, int *i)
 {
     char *error_msg;
     int redirector[2];
