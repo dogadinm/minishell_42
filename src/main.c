@@ -6,7 +6,7 @@
 /*   By: mdogadin <mdogadin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:20:52 by mdogadin          #+#    #+#             */
-/*   Updated: 2024/04/03 16:48:39 by mdogadin         ###   ########.fr       */
+/*   Updated: 2024/04/03 17:06:06 by mdogadin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_command_info	info_init(t_command_info command, char *str, char **argv)
 t_command_info	init_command(char **argv, char **env)
 {
 	t_command_info	command;
-	char	*str;
+	char			*str;
 
 	str = NULL;
 	command.cmd = NULL;
@@ -78,10 +78,10 @@ t_command_info	init_command(char **argv, char **env)
 int	main(int argc, char **argv, char **env)
 {
 	t_command_info	command;
-	char	*str;
-	char	*out;
-	int		i;
-	
+	char			*str;
+	char			*out;
+	int				i;
+
 	command = init_command(argv, env);
 	while (argv && argc)
 	{
@@ -89,9 +89,7 @@ int	main(int argc, char **argv, char **env)
 		signal(SIGQUIT, SIG_IGN);
 		str = get_command_name(command);
 		if (str)
-		{
 			out = readline(str);
-		}
 		else
 			out = readline("guest@minishell $ ");
 		free(str);

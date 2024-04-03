@@ -6,7 +6,7 @@
 /*   By: mdogadin <mdogadin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:42:26 by mdogadin          #+#    #+#             */
-/*   Updated: 2024/04/03 16:38:09 by mdogadin         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:58:33 by mdogadin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ char	*ft_strjoin_next(char *s1, char *s2)
 	}
 	if (s1 == 0 || s2 == 0)
 		return (NULL);
-	string = (char *)malloc(sizeof(char) * (ft_strlen_next(s1) + ft_strlen_next(s2) + 1));
+	string = (char *)malloc(sizeof(char)
+			* (ft_strlen_next(s1) + ft_strlen_next(s2) + 1));
 	if (!string)
 		return (NULL);
 	while (s1[++i] != '\0')

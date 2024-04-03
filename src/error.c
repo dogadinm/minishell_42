@@ -6,13 +6,13 @@
 /*   By: mdogadin <mdogadin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:37:51 by mdogadin          #+#    #+#             */
-/*   Updated: 2024/04/03 16:37:51 by mdogadin         ###   ########.fr       */
+/*   Updated: 2024/04/03 17:01:29 by mdogadin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-extern int g_signal_status;
+extern int	g_signal_status;
 
 void	*mini_perror(int err_type, char *param, int err)
 {
@@ -42,7 +42,6 @@ void	*mini_perror(int err_type, char *param, int err)
 	ft_putendl_fd(param, 2);
 	return (NULL);
 }
-
 
 int	ft_atoi2(const char *nptr, long *nbr)
 {

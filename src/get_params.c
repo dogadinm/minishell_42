@@ -6,7 +6,7 @@
 /*   By: mdogadin <mdogadin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:28:53 by mdogadin          #+#    #+#             */
-/*   Updated: 2024/04/03 16:38:13 by mdogadin         ###   ########.fr       */
+/*   Updated: 2024/04/03 17:02:21 by mdogadin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,8 @@ t_mini	*get_outfile1(t_mini *node, char **args, int *i)
 		else
 			g_signal_status = 1;
 	}
-	return (node);  
+	return (node);
 }
-
 
 t_mini	*get_outfile2(t_mini *node, char **args, int *i)
 {
@@ -87,7 +86,7 @@ t_mini	*get_outfile2(t_mini *node, char **args, int *i)
 		else
 			g_signal_status = 1;
 	}
-	return (node);  
+	return (node);
 }
 
 t_mini	*get_infile1(t_mini *node, char **args, int *i)
@@ -123,7 +122,6 @@ t_mini	*get_infile2(t_mini *node, char **args, int *i)
 
 	str[0] = NULL;
 	str[1] = NULL;
-
 	aux = NULL;
 	nl = "minishell: syntax error near unexpected token `newline'";
 	(*i)++;

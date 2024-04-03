@@ -6,7 +6,7 @@
 /*   By: mdogadin <mdogadin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:37:58 by mdogadin          #+#    #+#             */
-/*   Updated: 2024/04/03 16:55:16 by mdogadin         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:57:51 by mdogadin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ char	*ft_strtrim_all(char const *string, int squote, int dquote)
 	{
 		squote = (squote + (!dquote && string[i] == '\'')) % 2;
 		dquote = (dquote + (!squote && string[i] == '\"')) % 2;
-		if ((string[i] != '\'' || dquote) && (string[i] != '\"' || squote) && ++j >= 0)
+		if ((string[i] != '\'' || dquote) && (string[i] != '\"' || squote)
+			&& ++j >= 0)
 			trimmed[j] = string[i];
 		i++;
 	}

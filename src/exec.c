@@ -6,7 +6,7 @@
 /*   By: mdogadin <mdogadin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:26:14 by mdogadin          #+#    #+#             */
-/*   Updated: 2024/04/03 16:39:41 by mdogadin         ###   ########.fr       */
+/*   Updated: 2024/04/03 17:04:28 by mdogadin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ void	exec_fork(t_command_info *command, t_list *cmd, int fd[2])
 
 void	*check_to_fork(t_command_info *command, t_list *cmd, int fd[2])
 {
+	DIR		*dir;
 	t_mini	*node;
-	DIR	*dir;
 
 	node = cmd->content;
 	dir = NULL;
@@ -99,7 +99,8 @@ void	*check_to_fork(t_command_info *command, t_list *cmd, int fd[2])
 		dir = opendir(*node->full_cmd);
 	if (node->infile == -1 || node->outfile == -1)
 		return (NULL);
-	if ((node->full_path && access(node->full_path, X_OK) == 0) || is_builtin(node))
+	if ((node->full_path && access(node->full_path, X_OK) == 0)
+		|| is_builtin(node))
 		exec_fork(command, cmd, fd);
 	else if (!is_builtin(node) && ((node->full_path && \
 		!access(node->full_path, F_OK)) || dir))

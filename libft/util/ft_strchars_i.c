@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchars_i.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperez-b <aperez-b@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mdogadin <mdogadin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 20:42:42 by aperez-b          #+#    #+#             */
-/*   Updated: 2021/11/04 12:35:43 by aperez-b         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:59:41 by mdogadin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,4 @@ int	ft_strchars_i(const char *s, char *set)
 		i++;
 	}
 	return (-1);
-}	
+}

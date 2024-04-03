@@ -6,7 +6,7 @@
 /*   By: mdogadin <mdogadin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:38:36 by mdogadin          #+#    #+#             */
-/*   Updated: 2024/04/03 16:42:33 by mdogadin         ###   ########.fr       */
+/*   Updated: 2024/04/03 17:00:07 by mdogadin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_get_strs(char *str[2], char *limit)
 
 	len = 0;
 	while (g_signal_status != 130 && (!str[0] || ft_strncmp(str[0], limit, len)
-		|| ft_strlen(limit) != len))
+			|| ft_strlen(limit) != len))
 	{
 		str[1] = ft_strjoin(str[1], str[0]);
 		free(str[0]);

@@ -6,12 +6,11 @@
 /*   By: mdogadin <mdogadin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:38:06 by mdogadin          #+#    #+#             */
-/*   Updated: 2024/04/03 16:38:07 by mdogadin         ###   ########.fr       */
+/*   Updated: 2024/04/03 17:01:10 by mdogadin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
 
 static void	update_output(char ***matrix, int fd)
 {
