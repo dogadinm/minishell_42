@@ -8,7 +8,7 @@
 # define DEFAULT "\001\033[0;39m\002"
 # define BLUE "\001\033[1;94m\002"
 
-# include "./libft/inc/libft.h"
+# include "../libft/inc/libft.h"
 # include "get_next_line.h"
 # include <signal.h>
 # include <sys/wait.h>
