@@ -2,12 +2,12 @@
 
 extern int	signal_status;
 
-void	child_builtin(t_prompt *prompt, t_mini *n, int l, t_list *cmd)
+void	child_builtin(t_command_info *command, t_mini *n, int l, t_list *cmd)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	if (!is_builtin(n) && n->full_cmd)
-		execve(n->full_path, n->full_cmd, prompt->envp);
+		execve(n->full_path, n->full_cmd, command->envp);
 	else if (n->full_cmd && !ft_strncmp(*n->full_cmd, "pwd", l) \
 		&& l == 3)
 		signal_status = mini_pwd();
@@ -17,7 +17,7 @@ void	child_builtin(t_prompt *prompt, t_mini *n, int l, t_list *cmd)
 	else if (is_builtin(n) && n->full_cmd && \
 		!ft_strncmp(*n->full_cmd, "env", l) && l == 3)
 	{
-		ft_putmatrix_fd(prompt->envp, 1, 1);
+		ft_putmatrix_fd(command->envp, 1, 1);
 		signal_status = 0;
 	}
 }
@@ -45,6 +45,22 @@ static void	*child_redir(t_list *cmd, int fd[2])
 	return ("");
 }
 
+void	*child_process(t_command_info *command, t_list *cmd, int fd[2])
+{
+	t_mini	*n;
+	int		l;
+
+	n = cmd->content;
+	l = 0;
+	if (n->full_cmd)
+		l = ft_strlen(*n->full_cmd);
+	child_redir(cmd, fd);
+	close(fd[READ_END]);
+	child_builtin(command, n, l, cmd);
+	ft_lstclear(&command->cmd, free_content);
+	exit(signal_status);
+}
+
 void	exec_fork(t_command_info *command, t_list *cmd, int fd[2])
 {
 	pid_t	pid;
@@ -68,12 +84,18 @@ void *check_to_fork(t_command_info *command, t_list *cmd, int fd[2])
 
     node = cmd->content;
     dir = NULL;
-
-    if (node->full_cmd)
-        dir = opendir(*node->full_cmd);
+	if (node->full_cmd)
+		dir = opendir(*node->full_cmd);
 	if (node->infile == -1 || node->outfile == -1)
 		return (NULL);
 	if ((node->full_path && access(node->full_path, X_OK) == 0) || is_builtin(node))
 		exec_fork(command, cmd, fd);
-
+	else if (!is_builtin(node) && ((node->full_path && \
+		!access(node->full_path, F_OK)) || dir))
+		signal_status = 126;
+	else if (!is_builtin(node) && node->full_cmd)
+		signal_status = 127;
+	if (dir)
+		closedir(dir);
+	return ("");
 }

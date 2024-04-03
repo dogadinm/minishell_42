@@ -6,11 +6,11 @@
 /*   By: mdogadin <mdogadin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:30:27 by mdogadin          #+#    #+#             */
-/*   Updated: 2023/11/07 11:59:13 by mdogadin         ###   ########.fr       */
+/*   Updated: 2024/04/03 15:41:23 by mdogadin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/get_next_line.h"
+#include "../include/get_next_line.h"
 
 char	*ft_copy_line(char *str)
 {

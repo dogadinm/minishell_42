@@ -127,7 +127,7 @@ t_mini	*get_infile2(t_mini *node, char **args, int *i)
 		if (node->infile != -1)
 		{
 			ft_putendl_fd(nl, 2);
-			g_status = 2;
+			signal_status = 2;
 		}
 	}
 	return (node);

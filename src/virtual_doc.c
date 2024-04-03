@@ -7,10 +7,10 @@ char *ft_get_strs(char *str[2], char *limit)
     size_t len;
 
     len = 0;
-    while (signal_status != 130 && (!srt[0] || ft_strncmp(str[0], limit, len)
+    while (signal_status != 130 && (!str[0] || ft_strncmp(str[0], limit, len)
         || ft_strlen(limit) != len))
     {
-        str[1] = ft_strjoin(str[1], str[0])
+        str[1] = ft_strjoin(str[1], str[0]);
         free(str[0]);
         str[0] = readline("> ");
         if(!str[0])

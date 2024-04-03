@@ -28,7 +28,7 @@ static char	*find_command(char **env_path, char *cmd, char *full_path)
 	return (full_path);
 }
 
-static DIR	*cmd_checks(t_prompt *prompt, t_list *cmd, char ***s, char *path)
+static DIR	*cmd_checks(t_command_info *command, t_list *cmd, char ***s, char *path)
 {
 	t_mini	*n;
 	DIR		*dir;
@@ -46,7 +46,7 @@ static DIR	*cmd_checks(t_prompt *prompt, t_list *cmd, char ***s, char *path)
 	}
 	else if (!is_builtin(n) && n && n->full_cmd && !dir)
 	{
-		path = get_env("PATH", prompt->envp, 4);
+		path = get_env("PATH", command->envp, 4);
 		*s = ft_split(path, ':');
 		free(path);
 		n->full_path = find_command(*s, *n->full_cmd, n->full_path);
@@ -56,13 +56,13 @@ static DIR	*cmd_checks(t_prompt *prompt, t_list *cmd, char ***s, char *path)
 	return (dir);
 }
 
-void	get_cmd(t_prompt *prompt, t_list *cmd, char **s, char *path)
+void	get_cmd(t_command_info *command, t_list *cmd, char **s, char *path)
 {
 	t_mini	*n;
 	DIR		*dir;
 
 	n = cmd->content;
-	dir = cmd_checks(prompt, cmd, &s, path);
+	dir = cmd_checks(command, cmd, &s, path);
 	if (!is_builtin(n) && n && n->full_cmd && dir)
 		mini_perror(IS_DIR, *n->full_cmd, 126);
 	else if (!is_builtin(n) && n && n->full_path && \
@@ -76,14 +76,14 @@ void	get_cmd(t_prompt *prompt, t_list *cmd, char **s, char *path)
 	ft_free_matrix(&s);
 }
 
-void	*exec_cmd(t_prompt *prompt, t_list *cmd)
+void	*exec_cmd(t_command_info *command, t_list *cmd)
 {
 	int		fd[2];
 
-	get_cmd(prompt, cmd, NULL, NULL);
+	get_cmd(command, cmd, NULL, NULL);
 	if (pipe(fd) == -1)
 		return (mini_perror(PIPERR, NULL, 1));
-	if (!check_to_fork(prompt, cmd, fd))
+	if (!check_to_fork(command, cmd, fd))
 		return (NULL);
 	close(fd[WRITE_END]);
 	if (cmd->next && !((t_mini *)cmd->next->content)->infile)

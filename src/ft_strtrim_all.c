@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-static int corret_len_malloc(char *string)
+static int corret_len_malloc(char const *string)
 {
     int i;
     int squote;
@@ -13,8 +13,8 @@ static int corret_len_malloc(char *string)
     count = 0;
     while (string && string[1])
     {
-        squote = (squote + (!dquote && string[1] == "\'")) % 2;
-        dquote = (dquote + (!squote && string[1] == "\'")) % 2;
+        squote = (squote + (!dquote && string[1] == '\'')) % 2;
+        dquote = (dquote + (!squote && string[1] == '\'')) % 2;
         if ((string[i] == '\"' && !squote) || (string[i] == '\'' && !dquote))
 			count++;
 		i++;

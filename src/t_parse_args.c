@@ -2,7 +2,7 @@
 
 extern int	signal_status;
 
-static char	**split_all(char **args, t_command_info *prompt)
+static char	**split_all(char **args, t_command_info *command)
 {
 	char	**subsplit;
 	int		i;
@@ -11,9 +11,9 @@ static char	**split_all(char **args, t_command_info *prompt)
 	i = -1;
 	while (args && args[++i])
 	{
-		args[i] = expand_vars(args[i], -1, quotes, prompt);
+		args[i] = expand_vars(args[i], -1, quotes, command);
 		args[i] = expand_path(args[i], -1, quotes, \
-			get_env("HOME", prompt->envp, 4));
+			get_env("HOME", command->envp, 4));
 		subsplit = ft_cmdsubsplit(args[i], "<|>");
 		ft_matrix_replace_in(&args, subsplit, i);
 		i += ft_matrixlen(subsplit) - 1;
@@ -28,11 +28,11 @@ static void	*parse_args(char **args, t_command_info *p)
 	int	i;
 
 	is_exit = 0;
-	p->cmds = fill_nodes(split_all(args, p), -1);
-	if (!p->cmds)
+	p->cmd = fill_nodes(split_all(args, p), -1);
+	if (!p->cmd)
 		return (p);
-	i = ft_lstsize(p->cmds);
-	signal_status = builtin(p, p->cmds, &is_exit, 0);
+	i = ft_lstsize(p->cmd);
+	signal_status = builtin(p, p->cmd, &is_exit, 0);
 	while (i-- > 0)
 		waitpid(-1, &signal_status, 0);
 	if (!is_exit && signal_status == 13)
@@ -41,7 +41,7 @@ static void	*parse_args(char **args, t_command_info *p)
 		signal_status = signal_status / 255;
 	if (args && is_exit)
 	{
-		ft_lstclear(&p->cmds, free_content);
+		ft_lstclear(&p->cmd, free_content);
 		return (NULL);
 	}
 	return (p);
@@ -66,12 +66,13 @@ void	*check_args(char *out, t_command_info *p)
 	if (!a)
 		return ("");
 	p = parse_args(a, p);
-	if (p && p->cmds)
-		n = p->cmds->content;
-	if (p && p->cmds && n && n->full_cmd && ft_lstsize(p->cmds) == 1)
+	printf("hh\n");
+	if (p && p->cmd)
+		n = p->cmd->content;
+	if (p && p->cmd && n && n->full_cmd && ft_lstsize(p->cmd) == 1)
 		p->envp = set_env("_", n->full_cmd[ft_matrixlen(n->full_cmd) - 1], \
 			p->envp, 1);
-	if (p && p->cmds)
-		ft_lstclear(&p->cmds, free_content);
+	if (p && p->cmd)
+		ft_lstclear(&p->cmd, free_content);
 	return (p);
 }

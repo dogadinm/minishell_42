@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-extern int	g_status;
+extern int	signal_status;
 
 static void get_home(t_command_info command, char **path)
 {
@@ -56,7 +56,7 @@ char *get_command_name(t_command_info command)
 	temp = ft_strjoin(user, path);
 	free(user);
 	free(path);
-	if (!g_status || g_status == -1)
+	if (!signal_status || signal_status == -1)
 		user_path = ft_strjoin(temp, DEFAULT);
 	else
 		user_path = ft_strjoin(temp, RED);

@@ -12,7 +12,7 @@ char *get_env(char *var, char **envp, int n)
     {
         n2 = n;
         if (n2 < ft_strchr_i(envp[i], '='))
-            n2 = ft_strchr_i(envp[i], '=')
+            n2 = ft_strchr_i(envp[i], '=');
         if (!ft_strncmp(envp[i], var, n2))
             return (ft_substr(envp[i], n2 + 1, ft_strlen(envp[i])));
         i++;
@@ -72,7 +72,7 @@ int	mini_export(t_command_info *command)
 	int		pos;
 	char	**argv;
 
-	argv = ((t_mini *)command->cmds->content)->full_cmd;
+	argv = ((t_mini *)command->cmd->content)->full_cmd;
 	if (ft_matrixlen(argv) >= 2)
 	{
 		ij[0] = 1;
@@ -99,7 +99,7 @@ int	mini_unset(t_command_info *command)
 	int		ij[2];
 
 	ij[0] = 0;
-	argv = ((t_mini *)command->cmds->content)->full_cmd;
+	argv = ((t_mini *)command->cmd->content)->full_cmd;
 	if (ft_matrixlen(argv) >= 2)
 	{
 		while (argv[++ij[0]])

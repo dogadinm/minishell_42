@@ -31,7 +31,7 @@ char	*expand_path(char *str, int i, int quotes[2], char *var)
 	return (str);
 }
 
-static char	*get_substr_var(char *str, int i, t_prompt *prompt)
+static char	*get_substr_var(char *str, int i, t_command_info *command)
 {
 	char	*aux;
 	int		pos;
@@ -42,10 +42,10 @@ static char	*get_substr_var(char *str, int i, t_prompt *prompt)
 	if (pos == -1)
 		pos = ft_strlen(str) - 1;
 	aux = ft_substr(str, 0, i - 1);
-	var = get_env(&str[i], prompt->envp, \
+	var = get_env(&str[i], command->envp, \
 		ft_strchars_i(&str[i], "\"\'$|>< "));
 	if (!var && str[i] == '$')
-		var = ft_itoa(prompt->pid);
+		var = ft_itoa(command->pid);
 	else if (!var && str[i] == '?')
 		var = ft_itoa(signal_status);
 	path = ft_strjoin(aux, var);
@@ -57,7 +57,7 @@ static char	*get_substr_var(char *str, int i, t_prompt *prompt)
 	return (aux);
 }
 
-char	*expand_vars(char *str, int i, int quotes[2], t_prompt *prompt)
+char	*expand_vars(char *str, int i, int quotes[2], t_command_info *command)
 {
 	quotes[0] = 0;
 	quotes[1] = 0;
@@ -68,8 +68,8 @@ char	*expand_vars(char *str, int i, int quotes[2], t_prompt *prompt)
 		if (!quotes[0] && str[i] == '$' && str[i + 1] && \
 			((ft_strchars_i(&str[i + 1], "/~%^{}:; ") && !quotes[1]) || \
 			(ft_strchars_i(&str[i + 1], "/~%^{}:;\"") && quotes[1])))
-			return (expand_vars(get_substr_var(str, ++i, prompt), -1, \
-				quotes, prompt));
+			return (expand_vars(get_substr_var(str, ++i, command), -1, \
+				quotes, command));
 	}
 	return (str);
 }

@@ -6,11 +6,11 @@
 /*   By: mdogadin <mdogadin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 10:42:26 by mdogadin          #+#    #+#             */
-/*   Updated: 2023/11/07 11:32:35 by mdogadin         ###   ########.fr       */
+/*   Updated: 2024/04/03 15:41:32 by mdogadin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../include/minishell.h"
 
 size_t	ft_strlen_next(char *s)
 {
