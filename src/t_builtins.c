@@ -2,7 +2,7 @@
 
 extern int	signal_status;
 
-int	builtin(t_command_info *prompt, t_list *cmd, int *is_exit, int n)
+int	builtin(t_command_info *command, t_list *cmd, int *is_exit, int n)
 {
 	char	**a;
 
@@ -15,16 +15,16 @@ int	builtin(t_command_info *prompt, t_list *cmd, int *is_exit, int n)
 		if (a && !ft_strncmp(*a, "exit", n) && n == 4)
 			signal_status = mini_exit(cmd, is_exit);
 		else if (!cmd->next && a && !ft_strncmp(*a, "cd", n) && n == 2)
-			signal_status = mini_cd(prompt);
+			signal_status = mini_cd(command);
 		else if (!cmd->next && a && !ft_strncmp(*a, "export", n) && n == 6)
-			signal_status = mini_export(prompt);
+			signal_status = mini_export(command);
 		else if (!cmd->next && a && !ft_strncmp(*a, "unset", n) && n == 5)
-			signal_status = mini_unset(prompt);
+			signal_status = mini_unset(command);
 		else
 		{
 			signal(SIGINT, SIG_IGN);
 			signal(SIGQUIT, SIG_IGN);
-			exec_cmd(prompt, cmd);
+			exec_cmd(command, cmd);
 		}
 		cmd = cmd->next;
 	}
