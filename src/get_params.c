@@ -6,13 +6,13 @@
 /*   By: mdogadin <mdogadin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 16:28:53 by mdogadin          #+#    #+#             */
-/*   Updated: 2024/04/03 16:29:54 by mdogadin         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:33:18 by mdogadin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-extern int	signal_status;
+extern int	g_signal_status;
 
 int	get_fd(int oldfd, char *path, int flags[2])
 {
@@ -56,10 +56,10 @@ t_mini	*get_outfile1(t_mini *node, char **args, int *i)
 		if (node->outfile != -1)
 		{
 			ft_putendl_fd(error_msg, 2);
-			signal_status = 2;
+			g_signal_status = 2;
 		}
 		else
-			signal_status = 1;
+			g_signal_status = 1;
 	}
 	return (node);  
 }
@@ -82,10 +82,10 @@ t_mini	*get_outfile2(t_mini *node, char **args, int *i)
 		if (node->outfile != -1)
 		{
 			ft_putendl_fd(error_msg, 2);
-			signal_status = 2;
+			g_signal_status = 2;
 		}
 		else
-			signal_status = 1;
+			g_signal_status = 1;
 	}
 	return (node);  
 }
@@ -107,10 +107,10 @@ t_mini	*get_infile1(t_mini *node, char **args, int *i)
 		if (node->infile != -1)
 		{
 			ft_putendl_fd(error_msg, 2);
-			signal_status = 2;
+			g_signal_status = 2;
 		}
 		else
-			signal_status = 1;
+			g_signal_status = 1;
 	}
 	return (node);
 }
@@ -138,7 +138,7 @@ t_mini	*get_infile2(t_mini *node, char **args, int *i)
 		if (node->infile != -1)
 		{
 			ft_putendl_fd(nl, 2);
-			signal_status = 2;
+			g_signal_status = 2;
 		}
 	}
 	return (node);
